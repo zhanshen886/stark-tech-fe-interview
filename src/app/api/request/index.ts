@@ -26,10 +26,7 @@ export interface AddTodoListRequestType {
   tags?: [], // 可選
   order?: number // 可選
 }
-export interface resultType{
-    success?:boolean,
-    data?: Record<string,any>[]
-}
+
 export function getTodoListRequest(params:Request){
     return get('/api/todos',{...params})
 }

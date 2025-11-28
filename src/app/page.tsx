@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import dayjs from 'dayjs';
 import styles from "./page.module.css";
 import { styled } from '@mui/material/styles';
@@ -15,7 +16,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import theme from './utility/theme';
 import Divider from '@mui/material/Divider';
 import { PlusIcon } from './utility/icons';
-import Checkbox from '@mui/material/Checkbox';
+
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import TocIcon from '@mui/icons-material/Toc';
@@ -24,7 +25,7 @@ import GradientIcon from '@mui/icons-material/Gradient';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CheckIcon from '@mui/icons-material/Check';
 
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
@@ -32,7 +33,7 @@ import Popover from '@mui/material/Popover';
 
 
 import { getTodoListRequest, AddTodoListRequest, UpdateTodoListRequest } from '@/app/api/request'
-import type { TodoResponse, resultType, AddTodoListRequestType, Request } from '@/app/api/request'
+import type { TodoResponse, AddTodoListRequestType, Request } from '@/app/api/request'
 const MyStyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main, // 使用主题色
   padding: theme.spacing(3), // 使用主题间距等样式函数
@@ -77,7 +78,6 @@ const optionsSort = [
   }
 ];
 export default function Home() {
-  const [value, setValue] = useState('female');
   const [success, setSuccess] = useState(false);
   const inputRef = useRef<any>(null)
   const dataRef = useRef<TodoResponse[]>([])
@@ -89,7 +89,7 @@ export default function Home() {
   const [selectedIndexSort, setSelectedIndexSort] = useState(0);
   const openSort = Boolean(anchorElSort);
   const [dataLists, setDateLists] = useState<TodoResponse[]>([])
-  const [addFlag, setAddFlag] = useState<Boolean>(false);
+  const [addFlag, setAddFlag] = useState<boolean>(false);
   const [selectedDateTime, setSelectedDateTime] = useState<any>(dayjs());
   const [selectedObj, setSelectedObj] = useState<TodoResponse>();
   const getToDoLlistsFun = (params: Request) => {
@@ -106,9 +106,6 @@ export default function Home() {
   useEffect(() => {
     getToDoLlistsFun({})
   }, [])
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
-  };
 
   const addRow = () => {
     if (!addFlag) {
@@ -167,9 +164,6 @@ export default function Home() {
     }
   };
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleClose = () => {
 
@@ -255,7 +249,7 @@ export default function Home() {
                         setSelectedDateTime(item?.dueDate ? dayjs(item?.dueDate) : null)
                         setSelectedObj(item)
                       }} style={{ color: dayjs(item?.dueDate) < dayjs() ? 'rgba(240, 91, 86, 1)' : 'white', cursor: 'pointer' }}>
-                        {item?.dueDate ? <span >{dayjs(item?.dueDate).format('YYYY/MM/DD HH:mm')}</span> : <img src='/VectorGrey.png' />}
+                        {item?.dueDate ? <span >{dayjs(item?.dueDate).format('YYYY/MM/DD HH:mm')}</span> : <Image alt="/" width={14} height={14} src='/VectorGrey.png' />}
                       </td>
                       <td className={styles.grey}>{dayjs(item?.createdAt).format('YYYY/MM/DD HH:mm')}</td>
                       <td className={styles.grey}>{item?.id}</td>
@@ -269,7 +263,7 @@ export default function Home() {
                         <input ref={inputRef} onKeyDown={(event: any) => handleKeyDown(event)}
                           onBlur={handleBlur} className={`${styles.inputRef}`} placeholder='輸入後按下Enter進行儲存' />
                       </td>
-                      <td >{<img src='/VectorGrey.png' />}
+                      <td >{<Image alt='/' width={16} height={16} src='/VectorGrey.png' />}
 
                       </td>
                       <td className={styles.grey}>{dayjs().format('YYYY/MM/DD HH:mm')}</td>
@@ -331,7 +325,7 @@ export default function Home() {
                 key={option.value}
                 style={{ width: '160px', display: 'flex', justifyContent: 'space-between', color: index === selectedIndexSort ? '#007aff' : 'white' }}
                 selected={index === selectedIndexSort}
-                onClick={(event) => {
+                onClick={() => {
                   setSelectedIndexSort(index);
                   setAnchorElSort(null);
                   getToDoLlistsFun({ sortBy: option.value })
@@ -357,7 +351,7 @@ export default function Home() {
                 key={option.value}
                 style={{ width: '160px', display: 'flex', justifyContent: 'space-between', color: index === selectedIndexType ? '#007aff' : 'white' }}
                 selected={index === selectedIndexType}
-                onClick={(event) => {
+                onClick={() => {
                   setSelectedIndexType(index);
                   setAnchorElType(null);
                   getToDoLlistsFun({ status: option.value })
