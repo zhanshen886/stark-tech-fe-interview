@@ -13,9 +13,9 @@ npm run dev
 pnpm dev
 ```
 
-# 本地部署 (Port 3001)
+# 本地部署编译 (Port 3001)
 npm run build
-# or
+# 本地启动服务
 npm run  start
 
 ### 系統需求
