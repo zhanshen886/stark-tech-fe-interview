@@ -15,15 +15,19 @@
   font-family: var(--font-geist-sans);
 
   .btns {
+
+    height: 28px;
     margin-left: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
+    border-radius: 6px;
+    margin-top: 10px;
 
     .cursor {
-      width: 35px;
-      height: 35px;
+      width: 30px;
+      height: 30px;
       border-radius: 10px;
       padding: 8px;
       cursor: pointer;
@@ -87,7 +91,7 @@
         display: flex;
         align-items: center;
         gap: 5px;
-
+        font-size: 16px;  
       }
     }
 

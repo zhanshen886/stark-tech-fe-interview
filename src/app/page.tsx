@@ -17,12 +17,6 @@ import theme from './utility/theme';
 import Divider from '@mui/material/Divider';
 import { PlusIcon } from './utility/icons';
 
-import SyncAltIcon from '@mui/icons-material/SyncAlt';
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-import TocIcon from '@mui/icons-material/Toc';
-import TodayIcon from '@mui/icons-material/Today';
-import GradientIcon from '@mui/icons-material/Gradient';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CheckIcon from '@mui/icons-material/Check';
 
 
@@ -30,10 +24,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import Popover from '@mui/material/Popover';
-
-
 import { getTodoListRequest, AddTodoListRequest, UpdateTodoListRequest } from '@/app/api/request'
 import type { TodoResponse, AddTodoListRequestType, Request } from '@/app/api/request'
+
 const MyStyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main, // 使用主题色
   padding: theme.spacing(3), // 使用主题间距等样式函数
@@ -214,12 +207,14 @@ export default function Home() {
             <Button variant="outlined" size="small" startIcon={<PlusIcon />} onClick={() => addRow()}>
               New Task
             </Button>
-            <MenuOpenIcon className={styles.cursor} onClick={(event: any) => {
+
+            <Image alt="/" className={styles.cursor} width={12} height={12} src='/MenuOpenIcon.png' onClick={(event: any) => {
               setAnchorElType(event.currentTarget);
             }} />
-            <SyncAltIcon className={styles.cursor} style={{ transform: 'rotate(90deg)' }} onClick={(event: any) => {
+            <Image alt="/" className={styles.cursor} width={12} height={12} src='/SyncAltIcon.png' onClick={(event: any) => {
               setAnchorElSort(event.currentTarget);
             }} />
+
           </div>
           <div className={styles.table}>
             <div className={styles.tbody} >
@@ -227,10 +222,18 @@ export default function Home() {
 
                 <thead className={styles.thead}>
                   <tr>
-                    <th ><div className={styles.theadcell}><TocIcon />Task Title</div></th>
-                    <th > <div className={styles.theadcell}><TodayIcon />Due Date</div></th>
-                    <th><div className={styles.theadcell}><GradientIcon />Created at</div> </th>
-                    <th> <div className={styles.theadcell}><AttachFileIcon />Task ID</div>  </th>
+                    <th ><div className={styles.theadcell}>
+                      <Image alt="/" width={16} height={14} src='/titleIcon.png' />
+                      Task Title</div></th>
+                    <th > <div className={styles.theadcell}>
+                      <Image alt="/" width={14} height={14} src='/dueDateIcon.png' />
+                      Due Date1</div></th>
+                    <th><div className={styles.theadcell}>
+                      <Image alt="/" width={14} height={14} src='/createdAtIcon.png' />
+                      Created at</div> </th>
+                    <th> <div className={styles.theadcell}>
+                      <Image alt="/" width={15} height={15} src='/taskIdIcon.png' />
+                      Task ID</div>  </th>
                   </tr>
                 </thead>
 
@@ -282,11 +285,10 @@ export default function Home() {
             onClose={handleClose}
             anchorOrigin={{
               vertical: 'bottom',
-              horizontal: 'left',
+              horizontal: 'center',
             }}
-
           >
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}  >
 
               <DateTimePicker value={selectedDateTime}
                 onAccept={() => {
@@ -328,7 +330,7 @@ export default function Home() {
                 onClick={() => {
                   setSelectedIndexSort(index);
                   setAnchorElSort(null);
-                  getToDoLlistsFun({ sortBy: option.value })
+                  getToDoLlistsFun({ sortBy: option.value, status: optionsType[selectedIndexType]?.value ?? 'all' })
                 }}
               >
                 {option.label}
@@ -354,7 +356,7 @@ export default function Home() {
                 onClick={() => {
                   setSelectedIndexType(index);
                   setAnchorElType(null);
-                  getToDoLlistsFun({ status: option.value })
+                  getToDoLlistsFun({ status: option.value, sortBy: optionsSort[selectedIndexSort]?.value ?? 'createdAt' })
                 }}
               >
                 {option.label}
