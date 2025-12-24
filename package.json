@@ -17,6 +17,7 @@
     "@mui/material": "^7.3.5",
     "@mui/styles": "^6.4.8",
     "@mui/x-date-pickers": "^8.19.0",
+    "antd-img-crop": "^4.27.0",
     "axios": "^1.13.2",
     "cuid": "^3.0.0",
     "dayjs": "^1.11.19",
