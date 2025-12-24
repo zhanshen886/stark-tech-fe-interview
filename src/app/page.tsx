@@ -205,7 +205,7 @@ export default function Home() {
           <Divider orientation="vertical" variant="middle" flexItem />
           <div className={styles.btns}>
             <Button variant="outlined" size="small" startIcon={<PlusIcon />} onClick={() => addRow()}>
-              New Task
+              New Task1111
             </Button>
 
             <Image alt="/" className={styles.cursor} width={12} height={12} src='/MenuOpenIcon.png' onClick={(event: any) => {
